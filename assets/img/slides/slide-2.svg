@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="0.6">
+      <stop offset="0" stop-color="#10163A"/>
+      <stop offset="0.55" stop-color="#0A0E27"/>
+      <stop offset="1" stop-color="#060917"/>
+    </linearGradient>
+    <linearGradient id="lime2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#DCFF3D"/>
+      <stop offset="1" stop-color="#9CC70A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="420" fill="url(#bg2)"/>
+  <g transform="rotate(-24 180 210)">
+    <rect x="60" y="-260" width="150" height="940" fill="url(#lime2)" opacity="0.10"/>
+    <rect x="240" y="-260" width="26" height="940" fill="#C8F520" opacity="0.4"/>
+  </g>
+  <circle cx="150" cy="330" r="180" fill="#C8F520" opacity="0.05"/>
+  <g font-family="Arial, Helvetica, sans-serif" transform="skewX(-8)" text-anchor="middle">
+    <text x="640" y="112" font-size="24" font-weight="700" letter-spacing="6" fill="#C8F520">BANNER DEMO · SLIDE 2</text>
+    <text x="640" y="200" font-size="88" font-weight="900" font-style="italic" fill="#FFFFFF">BONUS DE BUN VENIT</text>
+    <text x="640" y="262" font-size="40" font-weight="800" font-style="italic" fill="#C8F520">PACHET COMPLET SPORT + CASINO</text>
+  </g>
+  <g transform="skewX(-8) translate(560 300)">
+    <rect x="0" y="0" width="270" height="62" rx="12" fill="#C8F520"/>
+    <text x="135" y="41" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="900" font-style="italic" fill="#060917" text-anchor="middle">REVENDICĂ ACUM</text>
+  </g>
+  <text x="1150" y="395" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#6B7398" text-anchor="end">1X2.ro · înlocuiește cu PNG 1200×420</text>
+</svg>
