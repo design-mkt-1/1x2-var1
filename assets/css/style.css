@@ -16,7 +16,7 @@
   --white: #FFFFFF;
   --text: #EEF1FB;
   --text-dim: #9AA3C7;
-  --text-faint: #6B7398;
+  --text-faint: #7B84AE;
   --danger: #FF4D6A;
   --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
@@ -333,20 +333,51 @@ ul { list-style: none; }
   z-index: 3;
   left: 0;
   right: 0;
-  bottom: 14px;
+  bottom: 4px;
   display: flex;
   justify-content: center;
+  gap: 2px;
+}
+/* butonul e mare (țintă tactilă), bara vizibilă e desenată în ::after */
+.slider-dots button {
+  width: 36px;
+  height: 30px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  position: relative;
+}
+.slider-dots button::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  top: 50%;
+  height: 5px;
+  transform: translateY(-50%);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, .30);
+  transition: background .2s, left .2s, right .2s;
+}
+.slider-dots button.active::after { background: var(--lime); left: 2px; right: 2px; }
+
+/* Semnale de încredere sub slider */
+.trust-row {
+  display: flex;
+  justify-content: center;
+  gap: 34px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+.trust-row li {
+  display: inline-flex;
+  align-items: center;
   gap: 8px;
 }
-.slider-dots button {
-  width: 22px;
-  height: 5px;
-  border-radius: 3px;
-  border: 0;
-  background: rgba(255, 255, 255, .30);
-  transition: background .2s, width .2s;
-}
-.slider-dots button.active { background: var(--lime); width: 34px; }
+.trust-row svg { width: 17px; height: 17px; color: var(--lime); flex-shrink: 0; }
 
 /* ==========================================================================
    Category pills
@@ -451,7 +482,7 @@ ul { list-style: none; }
   align-items: center;
   justify-content: space-between;
   padding: 8px 10px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-faint);
   background: var(--navy-950);
 }
@@ -543,7 +574,7 @@ ul { list-style: none; }
 }
 .promo-copy { font-size: 13px; color: var(--text-dim); max-width: 34ch; position: relative; z-index: 1; }
 .promo-card .btn { margin-top: auto; align-self: flex-start; position: relative; z-index: 1; }
-.promo-fine { font-size: 10px; color: var(--text-faint); position: relative; z-index: 1; }
+.promo-fine { font-size: 11px; color: var(--text-faint); position: relative; z-index: 1; }
 
 /* ==========================================================================
    Jackpot band

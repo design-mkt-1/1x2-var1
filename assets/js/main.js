@@ -132,6 +132,26 @@ const AUTOPLAY_MS = 5000;
   });
 })();
 
+/* Cote 1X2 — selecția e doar vizuală (demo), un singur pronostic per meci */
+(function initOdds() {
+  document.querySelectorAll('.odds-row').forEach((row) => {
+    row.querySelectorAll('.odd-btn').forEach((btn) => {
+      btn.setAttribute('aria-pressed', 'false');
+      btn.addEventListener('click', () => {
+        const wasSelected = btn.classList.contains('selected');
+        row.querySelectorAll('.odd-btn').forEach((b) => {
+          b.classList.remove('selected');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        if (!wasSelected) {
+          btn.classList.add('selected');
+          btn.setAttribute('aria-pressed', 'true');
+        }
+      });
+    });
+  });
+})();
+
 /* Jackpot demo — numărul crește lent, doar vizual */
 (function initJackpot() {
   const el = document.querySelector('[data-jackpot]');
