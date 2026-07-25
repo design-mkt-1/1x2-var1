@@ -77,7 +77,6 @@ input { font-family: inherit; }
 .shell {
   max-width: var(--shell);
   margin: 0 auto;
-  padding: 0 20px;
 }
 
 /* Display type */
