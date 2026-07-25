@@ -17,7 +17,8 @@ tot folderul pe orice hosting static.
 Singura componentă funcțională este sliderul de pe pagina Casino.
 
 1. Copiază PNG-urile tale în folderul **`assets/img/slides/`**
-   (dimensiune recomandată: **1200 × 420 px** — alte dimensiuni sunt decupate automat).
+   (dimensiune recomandată: **900 × 400 px** — alte dimensiuni sunt decupate automat;
+   ține textul și butoanele centrate, marginile laterale pot fi decupate pe unele ecrane).
 2. Deschide **`assets/js/main.js`** — lista `SLIDES` este chiar la începutul fișierului:
 
    ```js
@@ -38,7 +39,7 @@ placeholdere demo — le poți șterge după ce adaugi PNG-urile finale.
 
 ## 🖼️ How to swap the slider banners (EN)
 
-1. Drop your PNGs into **`assets/img/slides/`** (recommended size **1200 × 420 px**).
+1. Drop your PNGs into **`assets/img/slides/`** (recommended size **900 × 400 px**; keep text centered — side margins may be cropped on some screens).
 2. Edit the `SLIDES` list at the top of **`assets/js/main.js`** — set `image` to your
    file name, `href` to the page opened on click (default: `sport.html`), and a short `alt`.
 3. Save — arrows and dots adapt automatically. Autoplay speed: `AUTOPLAY_MS`.
