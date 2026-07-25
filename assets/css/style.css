@@ -1274,7 +1274,11 @@ input { font-family: inherit; }
 }
 
 @media (max-width: 560px) {
-  .game-grid { grid-template-columns: repeat(2, 1fr); }
+  /* Lobby dens, ca în aplicațiile de casino: 3 coloane de jocuri */
+  .game-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .game-name { font-size: 13px; }
+  .game-art svg { width: 38%; }
+  .game-meta { font-size: 10px; padding: 5px 8px; }
   .live-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
   .slider-arrow { width: 38px; height: 38px; }
@@ -1286,6 +1290,119 @@ input { font-family: inherit; }
   .betslip-fab { right: 10px; bottom: 10px; }
   :root { --header-h: 62px; }
   .logo { font-size: 28px; }
+}
+
+/* ==========================================================================
+   Mobile-first (90%+ din trafic e mobil) — aspect de aplicație
+   ========================================================================== */
+
+/* Bara de navigare fixă jos — modelul standard al aplicațiilor de pariuri */
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 66;
+  display: none;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  background: rgba(7, 10, 26, .96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--line);
+  padding: 5px 8px calc(5px + env(safe-area-inset-bottom, 0px));
+}
+.bottom-nav a, .bottom-nav button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 48px;
+  border: 0;
+  background: transparent;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--text-dim);
+  transition: color .15s, background-color .15s;
+}
+.bottom-nav svg { width: 21px; height: 21px; }
+.bottom-nav .active { color: var(--lime); }
+.bottom-nav a:active, .bottom-nav button:active { background: var(--navy-700); }
+.bottom-nav .nav-count {
+  position: absolute;
+  top: 2px;
+  right: 50%;
+  transform: translateX(16px);
+  font-family: var(--font-num);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--navy-950);
+  background: var(--lime);
+  border-radius: 999px;
+  min-width: 15px;
+  padding: 0 4px;
+  line-height: 15px;
+}
+.bottom-nav a, .bottom-nav button { position: relative; }
+
+@media (max-width: 700px) {
+  html { -webkit-tap-highlight-color: transparent; }
+  body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+  .bottom-nav { display: grid; }
+
+  /* Text lizibil: 12px margine interioară; benzile media rămân full-bleed */
+  .shell { padding: 0 12px; }
+  .slider {
+    margin-left: -12px;
+    margin-right: -12px;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+  .ticker {
+    margin-left: -12px;
+    margin-right: -12px;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+  .cat-row, .filter-row {
+    margin-left: -12px;
+    margin-right: -12px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .filter-row { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .filter-row::-webkit-scrollbar { display: none; }
+
+  /* Ținte tactile: minim 44px, spațiere 8px+ */
+  .cat-pill { min-height: 44px; }
+  .btn-sm { min-height: 40px; }
+  .odd-btn { min-height: 52px; }
+  .section-link { padding: 8px 0; }
+
+  /* Meniul mobil devine secundar (bara de jos e navigarea principală) */
+  .mobile-menu .product-nav { display: none; }
+
+  /* Biletul devine bottom-sheet deasupra barei de navigare */
+  .betslip {
+    left: 0;
+    right: 0;
+    bottom: calc(58px + env(safe-area-inset-bottom, 0px));
+    width: 100%;
+    max-width: none;
+    border-radius: 16px 16px 0 0;
+    border-left: 0;
+    border-right: 0;
+  }
+  .betslip-fab { display: none; }
+
+  /* Apăsare cu feedback — senzație de aplicație */
+  .game-card:active, .live-card:active, .promo-card:active, .side-card:active { transform: scale(.98); }
 }
 
 @media (prefers-reduced-motion: reduce) {

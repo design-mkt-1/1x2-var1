@@ -340,6 +340,9 @@ function showToast(message) {
 
   slip.querySelector('[data-bs-close]').addEventListener('click', close);
   fab.addEventListener('click', open);
+  document.querySelectorAll('[data-bs-open]').forEach((el) => {
+    el.addEventListener('click', () => { opened ? close() : open(); });
+  });
 
   slip.querySelector('[data-bs-submit]').addEventListener('click', () => {
     if (!selections.size) { showToast('Adaugă cel puțin o selecție pe bilet.'); return; }
