@@ -5,7 +5,7 @@
    ▼▼▼  EDITEAZĂ AICI BANNERELE DIN SLIDER  ▼▼▼
    ---------------------------------------------------------------
    1. Copiază PNG-urile tale în folderul:  assets/img/slides/
-      (dimensiune recomandată: 900 × 400 px; ține textul centrat,
+      (dimensiune recomandată: 900 × 360 px; ține textul centrat,
       marginile laterale pot fi decupate pe unele ecrane)
    2. Modifică lista de mai jos: "image" = numele fișierului,
       "href" = pagina deschisă la click, "alt" = descriere scurtă.
