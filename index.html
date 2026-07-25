@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>1X2.ro — Casino Online | Sloturi, Live Casino &amp; Jackpot</title>
-  <meta name="description" content="1X2.ro — casino online și pariuri sportive. Sloturi populare, live casino, jackpoturi și cote de top. Demo front-end.">
+  <meta name="description" content="1X2.ro — casino online și pariuri sportive. Sloturi populare, live casino, jackpot progresiv și cote mărite. Demo front-end.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="assets/css/fonts.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+  <a class="skip-link" href="#continut">Sari la conținut</a>
 
   <!-- ================= HEADER ================= -->
   <header class="site-header">
@@ -51,18 +52,42 @@
     </div>
   </div>
 
-  <main>
-    <!-- ================= HERO SLIDER (funcțional) ================= -->
+  <main id="continut">
+    <!-- ================= HERO BENTO: SLIDER + CARDURI ================= -->
     <section class="hero shell" aria-label="Promoții">
-      <div class="slider" data-slider aria-roledescription="carusel">
-        <div class="slider-track"></div>
-        <button class="slider-arrow prev" type="button" aria-label="Slide anterior">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
-        </button>
-        <button class="slider-arrow next" type="button" aria-label="Slide următor">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
-        </button>
-        <div class="slider-dots" role="tablist" aria-label="Navigare slide-uri"></div>
+      <div class="hero-bento">
+        <div class="slider" data-slider aria-roledescription="carusel">
+          <div class="slider-track"></div>
+          <button class="slider-arrow prev" type="button" aria-label="Slide anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="slider-arrow next" type="button" aria-label="Slide următor">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <div class="slider-dots" role="tablist" aria-label="Navigare slide-uri"></div>
+        </div>
+
+        <div class="hero-side">
+          <a class="side-card" href="#jackpot">
+            <span class="tag">Jackpot progresiv</span>
+            <span class="num-big num"><span data-jackpot>2.847.391,50</span><small>RON</small></span>
+            <span class="side-sub">Crește la fiecare rotire — demo vizual</span>
+          </a>
+          <div class="side-card">
+            <span class="tag">Ofertă de bun venit</span>
+            <span class="side-title dsp">1.500 RON + 150 rotiri</span>
+            <span class="side-sub">La primul depozit · Demo · T&amp;C · 18+</span>
+            <a class="btn btn-lime btn-sm" href="#">Revendică bonusul</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ticker câștiguri (demo) -->
+      <div class="ticker" aria-label="Câștiguri recente (demo)">
+        <span class="ticker-label"><i aria-hidden="true"></i>Câștiguri</span>
+        <div class="ticker-viewport">
+          <div class="ticker-track" data-ticker></div>
+        </div>
       </div>
 
       <!-- Semnale de încredere -->
@@ -110,41 +135,24 @@
       </div>
     </section>
 
-    <!-- ================= PROMOȚII ================= -->
-    <section class="section shell" aria-label="Oferte">
-      <div class="promo-grid">
-        <article class="promo-card lit">
-          <span class="promo-tag">Ofertă de bun venit</span>
-          <h3 class="promo-title dsp">Bonus la primul depozit</h3>
-          <p class="promo-copy">Până la 1.500 RON și 150 de rotiri gratuite la primul depozit.</p>
-          <a class="btn btn-navy btn-sm" href="#">Revendică bonusul</a>
-          <span class="promo-fine">Demo · T&amp;C se aplică · 18+</span>
-        </article>
-        <article class="promo-card">
-          <span class="promo-tag">Zilnic în aplicație</span>
-          <h3 class="promo-title dsp">Cadouri zilnice</h3>
-          <p class="promo-copy">Deschide aplicația și primești rotiri gratuite sau bonusuri, în fiecare zi.</p>
-          <a class="btn btn-navy btn-sm" href="#">Descoperă</a>
-          <span class="promo-fine">Demo · T&amp;C se aplică · 18+</span>
-        </article>
-        <article class="promo-card">
-          <span class="promo-tag">Sport × Casino</span>
-          <h3 class="promo-title dsp">Pariază pe derby</h3>
-          <p class="promo-copy">Cote mărite la derby-urile din SuperLiga și Champions League, în fiecare weekend.</p>
-          <a class="btn btn-lime btn-sm" href="sport.html">Vezi cotele</a>
-          <span class="promo-fine">Demo · T&amp;C se aplică · 18+</span>
-        </article>
-      </div>
-    </section>
-
-    <!-- ================= SLOTURI ================= -->
+    <!-- ================= SLOTURI + FILTRE ================= -->
     <section class="section shell" id="sloturi" aria-label="Sloturi populare">
       <div class="section-head">
         <h2 class="section-title dsp">Sloturi <span class="tick">populare</span></h2>
         <a class="section-link" href="#">Vezi toate (demo) →</a>
       </div>
-      <div class="game-grid">
-        <a class="game-card" href="#">
+
+      <div class="filter-row" role="group" aria-label="Filtrează jocurile">
+        <button class="cat-pill active" type="button" data-filter="toate">Toate</button>
+        <button class="cat-pill" type="button" data-filter="sloturi">Sloturi</button>
+        <button class="cat-pill" type="button" data-filter="jackpot">Jackpot</button>
+        <button class="cat-pill" type="button" data-filter="crash">Crash</button>
+        <button class="cat-pill" type="button" data-filter="nou">Noi</button>
+        <button class="cat-pill" type="button" data-filter="hot">HOT</button>
+      </div>
+
+      <div class="game-grid" data-games>
+        <a class="game-card reveal" href="#" data-cat="sloturi hot" style="--i: 0">
           <div class="game-art art-1">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M27 4L11 27h9l-3 17 20-24H26z" fill="#fff"/></svg>
             <h3 class="game-name">Fulger 7</h3>
@@ -152,7 +160,7 @@
           <div class="game-meta"><span>Sloturi</span><span class="hot">HOT</span></div>
           <div class="game-hover"><span class="btn btn-lime btn-sm">Joacă</span></div>
         </a>
-        <a class="game-card" href="#">
+        <a class="game-card reveal" href="#" data-cat="sloturi hot" style="--i: 1">
           <div class="game-art art-2">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 6l6 8h10L24 42 8 14h10z" fill="#fff"/></svg>
             <h3 class="game-name">Rubin Regal</h3>
@@ -160,7 +168,7 @@
           <div class="game-meta"><span>Sloturi</span><span class="hot">HOT</span></div>
           <div class="game-hover"><span class="btn btn-lime btn-sm">Joacă</span></div>
         </a>
-        <a class="game-card" href="#">
+        <a class="game-card reveal" href="#" data-cat="sloturi nou" style="--i: 2">
           <div class="game-art art-3">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="16" stroke="#fff" stroke-width="4"/><circle cx="24" cy="24" r="6" fill="#fff"/></svg>
             <h3 class="game-name">Ocean Spin</h3>
@@ -168,7 +176,7 @@
           <div class="game-meta"><span>Sloturi</span><span>Nou</span></div>
           <div class="game-hover"><span class="btn btn-lime btn-sm">Joacă</span></div>
         </a>
-        <a class="game-card" href="#">
+        <a class="game-card reveal" href="#" data-cat="sloturi hot" style="--i: 3">
           <div class="game-art art-4">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 8c3 6 9 7 13 8-1 12-6 19-13 24-7-5-12-12-13-24 4-1 10-2 13-8z" fill="#fff"/></svg>
             <h3 class="game-name">Trifoi Verde</h3>
@@ -176,7 +184,7 @@
           <div class="game-meta"><span>Sloturi</span><span class="hot">HOT</span></div>
           <div class="game-hover"><span class="btn btn-lime btn-sm">Joacă</span></div>
         </a>
-        <a class="game-card" href="#">
+        <a class="game-card reveal" href="#" data-cat="jackpot hot" style="--i: 4">
           <div class="game-art art-5">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M8 34h32M10 34l3-16 8 8 3-16 3 16 8-8 3 16" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <h3 class="game-name">Coroana de Aur</h3>
@@ -184,7 +192,7 @@
           <div class="game-meta"><span>Jackpot</span><span class="hot">HOT</span></div>
           <div class="game-hover"><span class="btn btn-lime btn-sm">Joacă</span></div>
         </a>
-        <a class="game-card" href="#">
+        <a class="game-card reveal" href="#" data-cat="sloturi nou" style="--i: 5">
           <div class="game-art art-6">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 42s-14-8.6-14-19a8 8 0 0114-5.2A8 8 0 0138 23c0 10.4-14 19-14 19z" fill="#fff"/></svg>
             <h3 class="game-name">Inimă Sălbatică</h3>
@@ -192,7 +200,7 @@
           <div class="game-meta"><span>Sloturi</span><span>Nou</span></div>
           <div class="game-hover"><span class="btn btn-lime btn-sm">Joacă</span></div>
         </a>
-        <a class="game-card" href="#">
+        <a class="game-card reveal" href="#" data-cat="sloturi hot" style="--i: 6">
           <div class="game-art art-7">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4c4 8 2 10 8 14 6 5 6 22-8 26C10 40 10 23 16 18c6-4 4-6 8-14z" fill="#fff"/></svg>
             <h3 class="game-name">Foc și Fructe</h3>
@@ -200,7 +208,7 @@
           <div class="game-meta"><span>Sloturi</span><span class="hot">HOT</span></div>
           <div class="game-hover"><span class="btn btn-lime btn-sm">Joacă</span></div>
         </a>
-        <a class="game-card" href="#">
+        <a class="game-card reveal" href="#" data-cat="sloturi nou" style="--i: 7">
           <div class="game-art art-8">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 6a14 14 0 0114 14v4H10v-4A14 14 0 0124 6z" fill="#fff"/><path d="M16 28q-2 6 1 10M24 28q2 6-1 10M32 28q-2 6 1 10" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/></svg>
             <h3 class="game-name">Meduza Neon</h3>
@@ -208,7 +216,7 @@
           <div class="game-meta"><span>Sloturi</span><span>Nou</span></div>
           <div class="game-hover"><span class="btn btn-lime btn-sm">Joacă</span></div>
         </a>
-        <a class="game-card" href="#">
+        <a class="game-card reveal" href="#" data-cat="jackpot hot" style="--i: 8">
           <div class="game-art art-9">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4l5.9 12 13.1 1.9-9.5 9.2 2.3 13L24 33.9 12.2 40l2.3-13L5 17.9 18.1 16z" fill="#fff"/></svg>
             <h3 class="game-name">Steaua Norocului</h3>
@@ -216,7 +224,7 @@
           <div class="game-meta"><span>Jackpot</span><span class="hot">HOT</span></div>
           <div class="game-hover"><span class="btn btn-lime btn-sm">Joacă</span></div>
         </a>
-        <a class="game-card" href="#">
+        <a class="game-card reveal" href="#" data-cat="crash nou" style="--i: 9">
           <div class="game-art art-10">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M14 40c0-6 2-8 4-10-6-8-2-20 6-24 8 4 12 16 6 24 2 2 4 4 4 10l-6-4-4 6-4-6z" fill="#fff"/></svg>
             <h3 class="game-name">Rachetă X</h3>
@@ -224,7 +232,7 @@
           <div class="game-meta"><span>Crash</span><span>Nou</span></div>
           <div class="game-hover"><span class="btn btn-lime btn-sm">Joacă</span></div>
         </a>
-        <a class="game-card" href="#">
+        <a class="game-card reveal" href="#" data-cat="sloturi nou" style="--i: 10">
           <div class="game-art art-11">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="17" stroke="#fff" stroke-width="4"/><path d="M24 13v11l8 5" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg>
             <h3 class="game-name">Ora de Aur</h3>
@@ -232,7 +240,7 @@
           <div class="game-meta"><span>Sloturi</span><span>Nou</span></div>
           <div class="game-hover"><span class="btn btn-lime btn-sm">Joacă</span></div>
         </a>
-        <a class="game-card" href="#">
+        <a class="game-card reveal" href="#" data-cat="jackpot hot" style="--i: 11">
           <div class="game-art art-12">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="8" y="16" width="32" height="24" rx="4" fill="#fff"/><path d="M16 16v-4a8 8 0 0116 0v4" stroke="#fff" stroke-width="4"/><circle cx="24" cy="28" r="4" fill="#4a1c05"/></svg>
             <h3 class="game-name">Seiful Faraonului</h3>
@@ -243,14 +251,51 @@
       </div>
 
       <!-- Jackpot -->
-      <div class="jackpot-band" id="jackpot">
+      <div class="jackpot-band reveal" id="jackpot">
         <div>
           <h2 class="jackpot-label dsp">Jackpot progresiv
             <small>Se poate câștiga la orice rotire — demo vizual</small>
           </h2>
         </div>
-        <div class="jackpot-value"><span data-jackpot>2.847.391,50</span><small>RON</small></div>
+        <p class="jackpot-value"><span data-jackpot>2.847.391,50</span><small>RON</small></p>
         <a class="btn btn-lime btn-lg" href="#">Joacă la jackpot</a>
+      </div>
+    </section>
+
+    <!-- ================= PROMOȚII BENTO ================= -->
+    <section class="section shell" aria-label="Oferte">
+      <div class="section-head">
+        <h2 class="section-title dsp">Oferte <span class="tick">active</span></h2>
+        <a class="section-link" href="#">Toate promoțiile (demo) →</a>
+      </div>
+      <div class="promo-bento">
+        <article class="promo-card big lit reveal" style="--i: 0">
+          <span class="promo-tag">Ofertă de bun venit</span>
+          <h3 class="promo-title dsp">Până la 1.500 RON + 150 rotiri</h3>
+          <p class="promo-copy">Pachetul complet la primul depozit: bonus de casino și rotiri gratuite la sloturile populare.</p>
+          <a class="btn btn-lime" href="#">Revendică bonusul</a>
+          <span class="promo-fine">Demo · T&amp;C se aplică · 18+</span>
+        </article>
+        <article class="promo-card pa reveal" style="--i: 1">
+          <span class="promo-tag">Zilnic în aplicație</span>
+          <h3 class="promo-title dsp">Cadouri zilnice</h3>
+          <p class="promo-copy">Deschide aplicația și primești rotiri gratuite sau bonusuri, în fiecare zi.</p>
+          <span class="promo-fine">Demo · T&amp;C se aplică · 18+</span>
+        </article>
+        <article class="promo-card pb reveal" style="--i: 2">
+          <span class="promo-tag">Program de loialitate</span>
+          <h3 class="promo-title dsp">1X2 Club</h3>
+          <p class="promo-copy">Puncte la fiecare rundă, niveluri și premii lunare pentru jucătorii activi.</p>
+          <span class="promo-fine">Demo · T&amp;C se aplică · 18+</span>
+        </article>
+        <article class="promo-card wide reveal" style="--i: 3">
+          <div>
+            <span class="promo-tag">Sport × Casino</span>
+            <h3 class="promo-title dsp">Pariază pe derby</h3>
+            <p class="promo-copy">Cote mărite la derby-urile din SuperLiga și Champions League, în fiecare weekend.</p>
+          </div>
+          <a class="btn btn-lime" href="sport.html">Vezi cotele</a>
+        </article>
       </div>
     </section>
 
@@ -261,41 +306,41 @@
         <a class="section-link" href="#">Toate mesele (demo) →</a>
       </div>
       <div class="live-grid">
-        <a class="live-card" href="#">
+        <a class="live-card reveal" href="#" style="--i: 0">
           <span class="bg lc-1">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="18" stroke="#fff" stroke-width="3"/><circle cx="24" cy="24" r="9" stroke="#fff" stroke-width="3"/><path d="M24 6v9M24 33v9M6 24h9M33 24h9" stroke="#fff" stroke-width="3"/></svg>
           </span>
-          <span class="badge-live"><i></i>LIVE</span>
+          <span class="badge-live"><i aria-hidden="true"></i>LIVE</span>
           <span class="live-info">
             <span class="live-name dsp">Ruletă Live</span>
             <span class="live-sub">Dealeri reali · mize de la 1 RON</span>
           </span>
         </a>
-        <a class="live-card" href="#">
+        <a class="live-card reveal" href="#" style="--i: 1">
           <span class="bg lc-2">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="10" y="6" width="20" height="30" rx="3" fill="#fff" transform="rotate(-12 20 21)"/><rect x="20" y="12" width="20" height="30" rx="3" fill="#fff" opacity=".7" transform="rotate(10 30 27)"/></svg>
           </span>
-          <span class="badge-live"><i></i>LIVE</span>
+          <span class="badge-live"><i aria-hidden="true"></i>LIVE</span>
           <span class="live-info">
             <span class="live-name dsp">Blackjack</span>
             <span class="live-sub">Mese VIP și clasice</span>
           </span>
         </a>
-        <a class="live-card" href="#">
+        <a class="live-card reveal" href="#" style="--i: 2">
           <span class="bg lc-3">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="26" r="16" stroke="#fff" stroke-width="3"/><path d="M24 10V4M14 13l-4-4M34 13l4-4" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M24 26l7-7" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
           </span>
-          <span class="badge-live"><i></i>LIVE</span>
+          <span class="badge-live"><i aria-hidden="true"></i>LIVE</span>
           <span class="live-info">
             <span class="live-name dsp">Game Shows</span>
             <span class="live-sub">Roți ale norocului &amp; bonusuri</span>
           </span>
         </a>
-        <a class="live-card" href="#">
+        <a class="live-card reveal" href="#" style="--i: 3">
           <span class="bg lc-4">
             <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M14 10l7 12-7 12-7-12z" fill="#fff"/><path d="M33 8c4 5 8 7 8 12a5 5 0 01-8 4 5 5 0 01-8-4c0-5 4-7 8-12z" fill="#fff"/><path d="M33 24l3 9h-6z" fill="#fff"/></svg>
           </span>
-          <span class="badge-live"><i></i>LIVE</span>
+          <span class="badge-live"><i aria-hidden="true"></i>LIVE</span>
           <span class="live-info">
             <span class="live-name dsp">Baccarat</span>
             <span class="live-sub">Clasic, rapid, elegant</span>
@@ -305,8 +350,8 @@
     </section>
 
     <!-- ================= CROSS-SELL SPORT ================= -->
-    <section class="shell">
-      <div class="cross-sell">
+    <section class="shell" aria-label="Pariuri sportive">
+      <div class="cross-sell reveal">
         <div>
           <h2 class="dsp">Gata de <em>meci</em>?</h2>
           <p>Pariază la SuperLiga, Champions League și peste 30 de competiții. Un singur cont, un singur portofel: casino și sport împreună.</p>
@@ -324,7 +369,7 @@
           <a class="logo" href="index.html" aria-label="1X2.ro">
             <span>1</span><span class="x">X</span><span>2</span><span class="tld">.ro</span>
           </a>
-          <p>Casino online și pariuri sportive pentru România. Joc corect, retrageri rapide, ofertă mereu proaspătă. Site demonstrativ — nicio funcție reală de joc.</p>
+          <p>Casino online și pariuri sportive pentru România. Joc corect, retrageri rapide, ofertă mereu proaspătă. Site demonstrativ, fără funcții reale de joc.</p>
         </div>
         <div class="footer-col">
           <h4>Casino</h4>

@@ -35,13 +35,15 @@ const AUTOPLAY_MS = 5000;
 /* ▲▲▲  SFÂRȘITUL ZONEI DE EDITARE  ▲▲▲
    ========================================================================== */
 
+const PREFERS_STILL = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- Slider (păstrat din v1) ---------- */
 (function initSlider() {
   const root = document.querySelector('[data-slider]');
   if (!root || !SLIDES.length) return;
 
   const track = root.querySelector('.slider-track');
   const dotsBox = root.querySelector('.slider-dots');
-  const prefersStill = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   SLIDES.forEach((s, i) => {
     const a = document.createElement('a');
@@ -78,7 +80,7 @@ const AUTOPLAY_MS = 5000;
 
   function restart() {
     stop();
-    if (prefersStill || SLIDES.length < 2) return;
+    if (PREFERS_STILL || SLIDES.length < 2) return;
     timer = setInterval(() => go(index + 1), AUTOPLAY_MS);
   }
 
@@ -103,6 +105,9 @@ const AUTOPLAY_MS = 5000;
     startX = e.clientX;
     delete root.dataset.swiped;
   }, { passive: true });
+  root.addEventListener('pointermove', (e) => {
+    if (startX !== null && Math.abs(e.clientX - startX) > 45) root.dataset.swiped = '1';
+  }, { passive: true });
   root.addEventListener('pointerup', (e) => {
     if (startX === null) return;
     const dx = e.clientX - startX;
@@ -110,18 +115,14 @@ const AUTOPLAY_MS = 5000;
     if (Math.abs(dx) > 45) go(index + (dx < 0 ? 1 : -1), true);
   }, { passive: true });
   track.addEventListener('click', (e) => {
-    /* previne navigarea accidentală imediat după un swipe */
     if (root.dataset.swiped) { e.preventDefault(); delete root.dataset.swiped; }
   });
-  root.addEventListener('pointermove', (e) => {
-    if (startX !== null && Math.abs(e.clientX - startX) > 45) root.dataset.swiped = '1';
-  }, { passive: true });
 
   render();
   restart();
 })();
 
-/* Meniu mobil */
+/* ---------- Meniu mobil ---------- */
 (function initBurger() {
   const burger = document.querySelector('.burger');
   const menu = document.querySelector('.mobile-menu');
@@ -132,38 +133,222 @@ const AUTOPLAY_MS = 5000;
   });
 })();
 
-/* Cote 1X2 — selecția e doar vizuală (demo), un singur pronostic per meci */
-(function initOdds() {
+/* ---------- Dezvăluire la scroll ---------- */
+(function initReveals() {
+  const items = document.querySelectorAll('.reveal');
+  if (!items.length) return;
+  if (PREFERS_STILL || !('IntersectionObserver' in window)) {
+    document.documentElement.classList.add('no-observer');
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
+  items.forEach((el) => io.observe(el));
+})();
+
+/* ---------- Ticker câștiguri (demo) ---------- */
+(function initTicker() {
+  const track = document.querySelector('[data-ticker]');
+  if (!track) return;
+  const WINS = [
+    ['Andrei B.', '4.280 RON', 'Fulger 7'],
+    ['Ioana M.', '1.150 RON', 'Ruletă Live'],
+    ['Cristian P.', '12.400 RON', 'Seiful Faraonului'],
+    ['Elena D.', '760 RON', 'Ocean Spin'],
+    ['Vlad S.', '3.905 RON', 'Rachetă X'],
+    ['Maria T.', '2.240 RON', 'Coroana de Aur'],
+    ['Radu N.', '890 RON', 'Blackjack'],
+    ['Ana C.', '6.700 RON', 'Steaua Norocului']
+  ];
+  const html = WINS.map(([name, amount, game]) =>
+    '<span><b>' + name + '</b> a câștigat <span class="num">' + amount + '</span> la ' + game + '</span>'
+  ).join('');
+  /* două copii pentru buclă continuă; copia a doua e decorativă */
+  track.innerHTML = html + '<span aria-hidden="true">' + html + '</span>';
+})();
+
+/* ---------- Jackpot demo — crește lent, doar vizual ---------- */
+(function initJackpot() {
+  const els = document.querySelectorAll('[data-jackpot]');
+  if (!els.length) return;
+  let value = 2847391.5;
+  const fmt = new Intl.NumberFormat('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const paint = () => els.forEach((el) => { el.textContent = fmt.format(value); });
+  paint();
+  if (PREFERS_STILL) return;
+  setInterval(() => {
+    value += Math.random() * 3.7 + 0.4;
+    paint();
+  }, 900);
+})();
+
+/* ---------- Filtre sloturi ---------- */
+(function initFilters() {
+  const buttons = document.querySelectorAll('[data-filter]');
+  const grid = document.querySelector('[data-games]');
+  if (!buttons.length || !grid) return;
+  const cards = Array.from(grid.querySelectorAll('.game-card'));
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.toggle('active', b === btn));
+      const f = btn.dataset.filter;
+      let visible = 0;
+      cards.forEach((card) => {
+        const show = f === 'toate' || (card.dataset.cat || '').split(' ').includes(f);
+        card.classList.toggle('hidden', !show);
+        if (show) {
+          card.style.setProperty('--i', visible++);
+          card.classList.remove('in');
+        }
+      });
+      /* reintră animația de stagger pe cardurile vizibile */
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        cards.forEach((card) => { if (!card.classList.contains('hidden')) card.classList.add('in'); });
+      }));
+    });
+  });
+})();
+
+/* ---------- Toast ---------- */
+function showToast(message) {
+  const toast = document.querySelector('[data-toast]');
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(showToast.t);
+  showToast.t = setTimeout(() => toast.classList.remove('show'), 3200);
+}
+
+/* ---------- Bilet demo (betslip) ---------- */
+(function initBetslip() {
+  const slip = document.querySelector('[data-betslip]');
+  if (!slip) return;
+
+  const fab = document.querySelector('[data-betslip-fab]');
+  const itemsBox = slip.querySelector('[data-bs-items]');
+  const emptyMsg = slip.querySelector('[data-bs-empty]');
+  const totalEl = slip.querySelector('[data-bs-total]');
+  const counts = document.querySelectorAll('[data-bs-count]');
+  const stakeInput = slip.querySelector('#bs-stake-input');
+  const fmt = new Intl.NumberFormat('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  /* o selecție per meci: cheie = numele meciului */
+  const selections = new Map();
+  let opened = false;
+
+  function stake() {
+    const v = parseFloat(String(stakeInput.value).replace(/\./g, '').replace(',', '.'));
+    return isFinite(v) && v > 0 ? v : 0;
+  }
+
+  function open() { opened = true; sync(); }
+  function close() { opened = false; sync(); }
+
+  function sync() {
+    itemsBox.innerHTML = '';
+    selections.forEach((sel, match) => {
+      const row = document.createElement('div');
+      row.className = 'bs-item';
+      row.innerHTML =
+        '<span><span class="bs-pick">' + sel.pick + '</span><br><span class="bs-match">' + match + '</span></span>' +
+        '<span class="bs-odd">' + sel.odds.toFixed(2) + '</span>';
+      const rm = document.createElement('button');
+      rm.className = 'bs-remove';
+      rm.type = 'button';
+      rm.setAttribute('aria-label', 'Șterge selecția ' + match);
+      rm.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+      rm.addEventListener('click', () => {
+        selections.delete(match);
+        if (sel.btn) sel.btn.classList.remove('selected'), sel.btn.setAttribute('aria-pressed', 'false');
+        sync();
+      });
+      row.appendChild(rm);
+      itemsBox.appendChild(row);
+    });
+
+    const n = selections.size;
+    counts.forEach((c) => { c.textContent = n; });
+    emptyMsg.hidden = n > 0;
+
+    let total = 0;
+    if (n > 0) {
+      let product = 1;
+      selections.forEach((sel) => { product *= sel.odds; });
+      total = stake() * product;
+    }
+    totalEl.textContent = fmt.format(total) + ' RON';
+
+    const showSlip = opened && n >= 0;
+    slip.classList.toggle('open', showSlip);
+    fab.hidden = showSlip || n === 0;
+  }
+
+  function addSelection(match, pick, odds, btn) {
+    const existing = selections.get(match);
+    if (existing && existing.btn && existing.btn !== btn) {
+      existing.btn.classList.remove('selected');
+      existing.btn.setAttribute('aria-pressed', 'false');
+    }
+    selections.set(match, { pick, odds, btn });
+    if (!opened) open(); else sync();
+  }
+
+  function removeSelection(match) {
+    selections.delete(match);
+    sync();
+  }
+
+  /* butoanele de cote 1X2 */
   document.querySelectorAll('.odds-row').forEach((row) => {
+    const match = row.dataset.match || 'Meci';
     row.querySelectorAll('.odd-btn').forEach((btn) => {
       btn.setAttribute('aria-pressed', 'false');
       btn.addEventListener('click', () => {
+        const odds = parseFloat(btn.querySelector('b').textContent);
         const wasSelected = btn.classList.contains('selected');
         row.querySelectorAll('.odd-btn').forEach((b) => {
           b.classList.remove('selected');
           b.setAttribute('aria-pressed', 'false');
         });
-        if (!wasSelected) {
+        if (wasSelected) {
+          removeSelection(match);
+        } else {
           btn.classList.add('selected');
           btn.setAttribute('aria-pressed', 'true');
+          addSelection(match, 'Pronostic: ' + (btn.dataset.pick || '—'), odds, btn);
         }
       });
     });
   });
-})();
 
-/* Jackpot demo — numărul crește lent, doar vizual */
-(function initJackpot() {
-  const el = document.querySelector('[data-jackpot]');
-  if (!el) return;
-  const prefersStill = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let value = 2847391.5;
-  const fmt = new Intl.NumberFormat('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const paint = () => { el.textContent = fmt.format(value); };
-  paint();
-  if (prefersStill) return;
-  setInterval(() => {
-    value += Math.random() * 3.7 + 0.4;
-    paint();
-  }, 900);
+  /* butonul de boost din hero */
+  document.querySelectorAll('.odd-btn-boost').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      addSelection(btn.dataset.match, btn.dataset.pick, parseFloat(btn.dataset.odds), null);
+    });
+  });
+
+  stakeInput.addEventListener('input', sync);
+
+  slip.querySelector('[data-bs-close]').addEventListener('click', close);
+  fab.addEventListener('click', open);
+
+  slip.querySelector('[data-bs-submit]').addEventListener('click', () => {
+    if (!selections.size) { showToast('Adaugă cel puțin o selecție pe bilet.'); return; }
+    showToast('Bilet demo înregistrat — fără pariuri reale. Mulțumim că testezi 1X2!');
+    selections.forEach((sel) => {
+      if (sel.btn) { sel.btn.classList.remove('selected'); sel.btn.setAttribute('aria-pressed', 'false'); }
+    });
+    selections.clear();
+    close();
+  });
+
+  sync();
 })();

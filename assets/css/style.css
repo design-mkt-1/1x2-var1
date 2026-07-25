@@ -1,6 +1,6 @@
 /* ==========================================================================
-   1X2.ro — design system + page styles
-   Palette sampled from the brand logo: deep navy / white / neon lime
+   1X2.ro — design system v2 (bento / motion)
+   Navy + lime brand · Barlow Condensed display · Inter body · Chakra Petch numerals
    ========================================================================== */
 
 :root {
@@ -20,10 +20,12 @@
   --danger: #FF4D6A;
   --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
-  --radius: 14px;
-  --radius-sm: 10px;
+  --font-num: 'Chakra Petch', 'Segoe UI', system-ui, sans-serif;
+  --radius: 16px;
+  --radius-sm: 11px;
   --shell: 1200px;
   --header-h: 72px;
+  --ring: 0 0 0 3px rgba(200, 245, 32, .55);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,7 +34,10 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  background: var(--navy-900);
+  background:
+    radial-gradient(100% 60% at 85% -10%, rgba(200, 245, 32, .05), transparent 60%),
+    radial-gradient(90% 50% at 0% 10%, rgba(27, 35, 80, .55), transparent 60%),
+    var(--navy-900);
   color: var(--text);
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
@@ -41,8 +46,33 @@ body {
 
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; }
+button { font-family: inherit; cursor: pointer; color: inherit; }
 ul { list-style: none; }
+input { font-family: inherit; }
+
+/* Focus vizibil doar la navigarea cu tastatura */
+:focus { outline: none; }
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+  border-radius: 6px;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 100;
+  background: var(--lime);
+  color: var(--navy-950);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: 0 0 10px 10px;
+  transition: top .15s;
+}
+.skip-link:focus-visible { top: 0; }
 
 .shell {
   max-width: var(--shell);
@@ -50,7 +80,7 @@ ul { list-style: none; }
   padding: 0 20px;
 }
 
-/* Display type — condensed italic, always uppercase */
+/* Display type */
 .dsp {
   font-family: var(--font-display);
   font-style: italic;
@@ -60,7 +90,15 @@ ul { list-style: none; }
   line-height: 1.05;
 }
 
-.section { padding: 34px 0 10px; }
+/* Cifre — cote, sume, scoruri */
+.num {
+  font-family: var(--font-num);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.section { padding: 36px 0 10px; }
+[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
 
 .section-head {
   display: flex;
@@ -69,14 +107,8 @@ ul { list-style: none; }
   gap: 16px;
   margin-bottom: 18px;
 }
-
-.section-title {
-  font-size: clamp(24px, 3vw, 32px);
-  color: var(--white);
-}
-
+.section-title { font-size: clamp(24px, 3vw, 32px); color: var(--white); }
 .section-title .tick { color: var(--lime); }
-
 .section-link {
   font-size: 13px;
   font-weight: 600;
@@ -85,6 +117,16 @@ ul { list-style: none; }
   transition: color .15s;
 }
 .section-link:hover { color: var(--lime-strong); }
+
+/* Dezvăluire la scroll — doar transform/opacity, întreruptibil */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .5s cubic-bezier(.22, .61, .36, 1), transform .5s cubic-bezier(.22, .61, .36, 1);
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+.reveal.in { opacity: 1; transform: none; }
+.no-observer .reveal { opacity: 1; transform: none; }
 
 /* ==========================================================================
    Buttons
@@ -104,7 +146,7 @@ ul { list-style: none; }
   padding: 10px 22px;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
-  transition: transform .15s, box-shadow .15s, background .15s, color .15s, border-color .15s;
+  transition: transform .15s, box-shadow .15s, background-color .15s, color .15s, border-color .15s;
 }
 .btn:active { transform: translateY(1px); }
 
@@ -113,29 +155,19 @@ ul { list-style: none; }
   color: var(--navy-950);
   box-shadow: 0 4px 18px rgba(200, 245, 32, .28);
 }
-.btn-lime:hover {
-  box-shadow: 0 6px 26px rgba(200, 245, 32, .45);
-  transform: translateY(-1px);
-}
+.btn-lime:hover { box-shadow: 0 6px 26px rgba(200, 245, 32, .45); transform: translateY(-1px); }
 
-.btn-ghost {
-  background: transparent;
-  color: var(--white);
-  border-color: var(--line);
-}
+.btn-ghost { background: transparent; color: var(--white); border-color: var(--line); }
 .btn-ghost:hover { border-color: var(--lime); color: var(--lime); }
 
-.btn-navy {
-  background: var(--navy-600);
-  color: var(--white);
-}
+.btn-navy { background: var(--navy-600); color: var(--white); }
 .btn-navy:hover { background: var(--navy-700); color: var(--lime); }
 
 .btn-lg { font-size: 20px; padding: 13px 30px; }
 .btn-sm { font-size: 15px; padding: 7px 16px; }
 
 /* ==========================================================================
-   Header
+   Header (păstrat din v1)
    ========================================================================== */
 
 .site-header {
@@ -149,14 +181,8 @@ ul { list-style: none; }
   border-bottom: 1px solid var(--line);
 }
 
-.header-inner {
-  height: var(--header-h);
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
+.header-inner { height: var(--header-h); display: flex; align-items: center; gap: 28px; }
 
-/* Logo — vector wordmark echoing the brand logo (white 1X2, lime slash) */
 .logo {
   display: flex;
   align-items: baseline;
@@ -170,11 +196,7 @@ ul { list-style: none; }
   line-height: 1;
   user-select: none;
 }
-.logo .x {
-  position: relative;
-  display: inline-block;
-  padding: 0 1px;
-}
+.logo .x { position: relative; display: inline-block; padding: 0 1px; }
 .logo .x::after {
   content: '';
   position: absolute;
@@ -187,14 +209,8 @@ ul { list-style: none; }
   border-radius: 2px;
   pointer-events: none;
 }
-.logo .tld {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--lime);
-  margin-left: 3px;
-}
+.logo .tld { font-size: 15px; font-weight: 700; color: var(--lime); margin-left: 3px; }
 
-/* Product tabs */
 .product-nav {
   display: flex;
   gap: 4px;
@@ -216,23 +232,14 @@ ul { list-style: none; }
   color: var(--text-dim);
   padding: 8px 20px;
   border-radius: 9px;
-  transition: color .15s, background .15s;
+  transition: color .15s, background-color .15s;
 }
 .product-nav a svg { width: 17px; height: 17px; flex-shrink: 0; }
 .product-nav a:hover { color: var(--white); }
-.product-nav a.active {
-  background: var(--lime);
-  color: var(--navy-950);
-}
+.product-nav a.active { background: var(--lime); color: var(--navy-950); }
 
-.header-auth {
-  margin-left: auto;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
+.header-auth { margin-left: auto; display: flex; gap: 10px; align-items: center; }
 
-/* Burger (mobile) */
 .burger {
   display: none;
   margin-left: auto;
@@ -246,13 +253,7 @@ ul { list-style: none; }
   justify-content: center;
   gap: 5px;
 }
-.burger span {
-  width: 20px;
-  height: 2px;
-  background: var(--white);
-  border-radius: 2px;
-  transition: transform .2s, opacity .2s;
-}
+.burger span { width: 20px; height: 2px; background: var(--white); border-radius: 2px; transition: transform .2s, opacity .2s; }
 .burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -275,11 +276,16 @@ ul { list-style: none; }
 .mobile-menu .auth-row .btn { flex: 1; }
 
 /* ==========================================================================
-   Hero slider (the functional component)
+   Hero bento: slider + coloană laterală
    ========================================================================== */
 
-.hero {
-  padding-top: 22px;
+.hero { padding-top: 22px; }
+
+.hero-bento {
+  display: grid;
+  grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
 }
 
 .slider {
@@ -291,20 +297,10 @@ ul { list-style: none; }
   box-shadow: 0 18px 50px rgba(0, 0, 0, .45);
 }
 
-.slider-track {
-  display: flex;
-  transition: transform .55s cubic-bezier(.22, .61, .36, 1);
-}
+.slider-track { display: flex; height: 100%; transition: transform .55s cubic-bezier(.22, .61, .36, 1); }
 
-.slide {
-  flex: 0 0 100%;
-  min-width: 100%;
-}
-.slide img {
-  width: 100%;
-  aspect-ratio: 1200 / 420;
-  object-fit: cover;
-}
+.slide { flex: 0 0 100%; min-width: 100%; }
+.slide img { width: 100%; height: 100%; aspect-ratio: 1200 / 420; object-fit: cover; }
 
 .slider-arrow {
   position: absolute;
@@ -321,7 +317,7 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background .15s, color .15s, border-color .15s;
+  transition: background-color .15s, color .15s, border-color .15s;
 }
 .slider-arrow svg { width: 20px; height: 20px; }
 .slider-arrow:hover { background: var(--lime); color: var(--navy-950); border-color: var(--lime); }
@@ -338,7 +334,6 @@ ul { list-style: none; }
   justify-content: center;
   gap: 2px;
 }
-/* butonul e mare (țintă tactilă), bara vizibilă e desenată în ::after */
 .slider-dots button {
   width: 36px;
   height: 30px;
@@ -357,11 +352,118 @@ ul { list-style: none; }
   transform: translateY(-50%);
   border-radius: 3px;
   background: rgba(255, 255, 255, .30);
-  transition: background .2s, left .2s, right .2s;
+  transition: background-color .2s, left .2s, right .2s;
 }
 .slider-dots button.active::after { background: var(--lime); left: 2px; right: 2px; }
 
-/* Semnale de încredere sub slider */
+/* Coloana laterală din hero */
+.hero-side { display: grid; grid-template-rows: 1fr 1fr; gap: 14px; min-width: 0; }
+
+.side-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: linear-gradient(130deg, var(--navy-700), var(--navy-800));
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  transition: border-color .18s, transform .18s;
+}
+.side-card:hover { border-color: rgba(200, 245, 32, .5); transform: translateY(-2px); }
+.side-card::after {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -52px;
+  width: 130px;
+  height: 260px;
+  background: linear-gradient(var(--lime), var(--lime-deep));
+  opacity: .12;
+  transform: rotate(24deg);
+  border-radius: 22px;
+  pointer-events: none;
+}
+.side-card .tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--lime);
+}
+.side-card .side-title { font-size: 23px; color: var(--white); position: relative; z-index: 1; }
+.side-card .side-sub { font-size: 12.5px; color: var(--text-dim); position: relative; z-index: 1; }
+.side-card .num-big {
+  font-size: clamp(24px, 2.2vw, 30px);
+  color: var(--lime);
+  text-shadow: 0 0 26px rgba(200, 245, 32, .4);
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+}
+.side-card .num-big small { font-size: .55em; margin-left: 4px; }
+.side-card .btn { align-self: flex-start; margin-top: 6px; position: relative; z-index: 1; }
+
+/* ==========================================================================
+   Ticker câștiguri (marquee)
+   ========================================================================== */
+
+.ticker {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--navy-800);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.ticker-label {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: .06em;
+  color: var(--navy-950);
+  background: var(--lime);
+  border-radius: 999px;
+  padding: 7px 16px;
+  margin: 4px;
+}
+.ticker-label i {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--navy-950);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.ticker-viewport { overflow: hidden; flex: 1; min-width: 0; }
+.ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marquee 36s linear infinite;
+  will-change: transform;
+}
+.ticker:hover .ticker-track,
+.ticker:focus-within .ticker-track { animation-play-state: paused; }
+.ticker-track span {
+  font-size: 13px;
+  color: var(--text-dim);
+  padding: 8px 26px 8px 0;
+}
+.ticker-track b { color: var(--white); font-weight: 600; }
+.ticker-track .num { color: var(--lime); font-weight: 700; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Semnale de încredere */
 .trust-row {
   display: flex;
   justify-content: center;
@@ -372,15 +474,11 @@ ul { list-style: none; }
   font-weight: 500;
   color: var(--text-dim);
 }
-.trust-row li {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
+.trust-row li { display: inline-flex; align-items: center; gap: 8px; }
 .trust-row svg { width: 17px; height: 17px; color: var(--lime); flex-shrink: 0; }
 
 /* ==========================================================================
-   Category pills
+   Pastile categorie + filtre
    ========================================================================== */
 
 .cat-row {
@@ -409,25 +507,20 @@ ul { list-style: none; }
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 9px 20px;
-  transition: color .15s, border-color .15s, background .15s;
+  transition: color .15s, border-color .15s, background-color .15s;
 }
 .cat-pill svg { width: 16px; height: 16px; }
 .cat-pill:hover { color: var(--white); border-color: var(--text-faint); }
-.cat-pill.active {
-  background: var(--lime);
-  border-color: var(--lime);
-  color: var(--navy-950);
-}
+.cat-pill.active { background: var(--lime); border-color: var(--lime); color: var(--navy-950); }
+
+.filter-row { margin: 0 0 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-row .cat-pill { font-size: 15px; padding: 7px 16px; }
 
 /* ==========================================================================
-   Game grid (casino)
+   Grila de jocuri
    ========================================================================== */
 
-.game-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 14px;
-}
+.game-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
 
 .game-card {
   position: relative;
@@ -437,11 +530,8 @@ ul { list-style: none; }
   background: var(--navy-800);
   transition: transform .18s, box-shadow .18s, border-color .18s;
 }
-.game-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(200, 245, 32, .55);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, .5);
-}
+.game-card:hover { transform: translateY(-4px); border-color: rgba(200, 245, 32, .55); box-shadow: 0 12px 30px rgba(0, 0, 0, .5); }
+.game-card.hidden { display: none; }
 
 .game-art {
   aspect-ratio: 3 / 4;
@@ -500,9 +590,9 @@ ul { list-style: none; }
   transition: opacity .18s;
 }
 .game-card:hover .game-hover,
-.game-card:focus-within .game-hover { opacity: 1; }
+.game-card:focus-within .game-hover,
+.game-card:focus-visible .game-hover { opacity: 1; }
 
-/* Art gradients */
 .art-1 { background: linear-gradient(150deg, #35138a, #7b2ff7 55%, #b249f8); }
 .art-2 { background: linear-gradient(150deg, #8a1032, #e6244e 55%, #ff7847); }
 .art-3 { background: linear-gradient(150deg, #0a4d8c, #1585e0 55%, #37c5f0); }
@@ -517,27 +607,34 @@ ul { list-style: none; }
 .art-12 { background: linear-gradient(150deg, #4a1c05, #9a4a0c 55%, #e8a03d); }
 
 /* ==========================================================================
-   Promo cards
+   Bento promoții
    ========================================================================== */
 
-.promo-grid {
+.promo-bento {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1.1fr 1fr 1fr;
+  grid-template-areas:
+    "big a b"
+    "big wide wide";
   gap: 14px;
 }
+.promo-card.big { grid-area: big; min-height: 320px; }
+.promo-card.pa { grid-area: a; }
+.promo-card.pb { grid-area: b; }
+.promo-card.wide { grid-area: wide; flex-direction: row; align-items: center; justify-content: space-between; gap: 18px; min-height: 0; }
+.promo-card.wide .btn { margin-top: 0; flex-shrink: 0; }
 
 .promo-card {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background:
-    linear-gradient(115deg, var(--navy-700) 55%, var(--navy-600));
+  background: linear-gradient(115deg, var(--navy-700) 55%, var(--navy-600));
   padding: 26px 24px 24px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  min-height: 190px;
+  min-height: 150px;
   transition: transform .18s, border-color .18s;
 }
 .promo-card:hover { transform: translateY(-3px); border-color: rgba(200, 245, 32, .45); }
@@ -547,7 +644,7 @@ ul { list-style: none; }
   top: -30px;
   right: -46px;
   width: 150px;
-  height: 240px;
+  height: 260px;
   background: linear-gradient(var(--lime), var(--lime-deep));
   opacity: .13;
   transform: rotate(24deg);
@@ -555,24 +652,12 @@ ul { list-style: none; }
   pointer-events: none;
 }
 .promo-card.lit::after { opacity: .9; }
-.promo-card.lit {
-  background: linear-gradient(115deg, var(--navy-700) 35%, #26310b 130%);
-}
+.promo-card.lit { background: linear-gradient(115deg, var(--navy-700) 35%, #26310b 130%); }
 
-.promo-tag {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  color: var(--lime);
-}
-.promo-title {
-  font-size: 26px;
-  color: var(--white);
-  position: relative;
-  z-index: 1;
-}
-.promo-copy { font-size: 13px; color: var(--text-dim); max-width: 34ch; position: relative; z-index: 1; }
+.promo-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--lime); }
+.promo-title { font-size: 26px; color: var(--white); position: relative; z-index: 1; }
+.promo-card.big .promo-title { font-size: clamp(30px, 3vw, 40px); }
+.promo-copy { font-size: 13px; color: var(--text-dim); max-width: 38ch; position: relative; z-index: 1; }
 .promo-card .btn { margin-top: auto; align-self: flex-start; position: relative; z-index: 1; }
 .promo-fine { font-size: 11px; color: var(--text-faint); position: relative; z-index: 1; }
 
@@ -587,18 +672,14 @@ ul { list-style: none; }
   background:
     radial-gradient(120% 200% at 8% 0%, rgba(200, 245, 32, .16), transparent 45%),
     linear-gradient(115deg, var(--navy-800), var(--navy-700));
-  padding: 30px 30px;
+  padding: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   flex-wrap: wrap;
 }
-
-.jackpot-label {
-  font-size: clamp(20px, 2.4vw, 28px);
-  color: var(--white);
-}
+.jackpot-label { font-size: clamp(20px, 2.4vw, 28px); color: var(--white); }
 .jackpot-label small {
   display: block;
   font-family: var(--font-body);
@@ -610,28 +691,22 @@ ul { list-style: none; }
   color: var(--text-dim);
   margin-top: 4px;
 }
-
 .jackpot-value {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 800;
-  font-size: clamp(34px, 5vw, 58px);
+  font-family: var(--font-num);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(30px, 4.6vw, 52px);
   color: var(--lime);
   text-shadow: 0 0 34px rgba(200, 245, 32, .45);
-  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 .jackpot-value small { font-size: .5em; margin-left: 6px; }
 
 /* ==========================================================================
-   Live casino tiles
+   Live casino
    ========================================================================== */
 
-.live-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-}
+.live-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 
 .live-card {
   position: relative;
@@ -657,7 +732,6 @@ ul { list-style: none; }
 .lc-2 { background: linear-gradient(140deg, #2c0716, #6e0e2e 60%, #b01e46); }
 .lc-3 { background: linear-gradient(140deg, #1a1040, #38208a 60%, #6038d8); }
 .lc-4 { background: linear-gradient(140deg, #402a06, #8a5c10 60%, #d89b1e); }
-
 .live-card .bg svg {
   position: absolute;
   right: -12%;
@@ -667,7 +741,6 @@ ul { list-style: none; }
   height: auto;
   opacity: .5;
 }
-
 .live-info { position: relative; z-index: 2; }
 .live-name { font-size: 21px; color: var(--white); }
 .live-sub { font-size: 12px; color: var(--text-dim); }
@@ -688,13 +761,7 @@ ul { list-style: none; }
   border-radius: 999px;
   padding: 3px 10px;
 }
-.badge-live i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--navy-950);
-  animation: pulse 1.4s ease-in-out infinite;
-}
+.badge-live i { width: 6px; height: 6px; border-radius: 50%; background: var(--navy-950); animation: pulse 1.4s ease-in-out infinite; }
 
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
@@ -702,11 +769,18 @@ ul { list-style: none; }
 }
 
 /* ==========================================================================
-   Sport page
+   Sport: hero împărțit + cota zilei
    ========================================================================== */
 
-.sport-hero {
+.sport-hero-grid {
   margin-top: 22px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.sport-hero {
   position: relative;
   border-radius: var(--radius);
   overflow: hidden;
@@ -729,19 +803,6 @@ ul { list-style: none; }
   transform: rotate(24deg);
   pointer-events: none;
 }
-.sport-hero::before {
-  content: '';
-  position: absolute;
-  right: 22%;
-  top: -60%;
-  width: 34px;
-  height: 300%;
-  background: var(--lime);
-  opacity: .08;
-  transform: rotate(24deg);
-  pointer-events: none;
-}
-
 .sport-hero .kicker {
   font-size: 12px;
   font-weight: 700;
@@ -750,25 +811,53 @@ ul { list-style: none; }
   color: var(--lime);
   margin-bottom: 8px;
 }
-.sport-hero h1 {
-  font-size: clamp(34px, 5vw, 56px);
-  color: var(--white);
-  max-width: 15ch;
-}
+.sport-hero h1 { font-size: clamp(34px, 4.6vw, 52px); color: var(--white); max-width: 15ch; }
 .sport-hero h1 em { color: var(--lime); font-style: italic; }
-.sport-hero p {
-  color: var(--text-dim);
-  max-width: 46ch;
-  margin: 12px 0 22px;
-  font-size: 15px;
-}
+.sport-hero p { color: var(--text-dim); max-width: 46ch; margin: 12px 0 22px; font-size: 15px; }
 
-/* Match coupons */
-.match-list {
+/* Cota zilei */
+.boost-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid rgba(200, 245, 32, .4);
+  background:
+    radial-gradient(120% 150% at 100% 0%, rgba(200, 245, 32, .14), transparent 55%),
+    linear-gradient(140deg, var(--navy-700), var(--navy-800));
+  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+.boost-card .tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--lime); }
+.boost-title { font-size: 25px; color: var(--white); }
+.boost-match { font-size: 13px; color: var(--text-dim); }
+.boost-odds { display: flex; align-items: center; gap: 14px; margin-top: 2px; }
+.boost-old {
+  font-family: var(--font-num);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--text-faint);
+  text-decoration: line-through;
+  text-decoration-color: var(--danger);
+  text-decoration-thickness: 2.5px;
+}
+.boost-new {
+  font-family: var(--font-num);
+  font-weight: 700;
+  font-size: 38px;
+  color: var(--lime);
+  text-shadow: 0 0 26px rgba(200, 245, 32, .45);
+}
+.boost-arrow { color: var(--lime); width: 22px; height: 22px; }
+.boost-card .btn { margin-top: auto; align-self: flex-start; }
+.boost-fine { font-size: 11px; color: var(--text-faint); }
+
+/* ==========================================================================
+   Cupoane meciuri
+   ========================================================================== */
+
+.match-list { display: flex; flex-direction: column; gap: 10px; }
 
 .match-card {
   display: grid;
@@ -779,7 +868,7 @@ ul { list-style: none; }
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   padding: 14px 18px;
-  transition: border-color .15s, transform .15s;
+  transition: border-color .15s;
 }
 .match-card:hover { border-color: rgba(200, 245, 32, .4); }
 
@@ -796,6 +885,7 @@ ul { list-style: none; }
   margin-bottom: 5px;
 }
 .match-league svg { width: 13px; height: 13px; }
+.match-league .markets { color: var(--text-faint); font-weight: 500; letter-spacing: 0; text-transform: none; }
 .match-teams {
   font-family: var(--font-display);
   font-style: italic;
@@ -810,20 +900,22 @@ ul { list-style: none; }
 }
 .match-teams .vs { color: var(--lime); font-size: .8em; padding: 0 6px; }
 .match-time { font-size: 12px; color: var(--text-dim); margin-top: 3px; }
-.match-time .live-tag {
-  color: var(--lime);
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-.match-time .live-tag i {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--lime);
-  display: inline-block;
-  animation: pulse 1.4s ease-in-out infinite;
-}
+.match-time .live-tag { color: var(--lime); font-weight: 700; display: inline-flex; align-items: center; gap: 5px; }
+.match-time .live-tag i { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); display: inline-block; animation: pulse 1.4s ease-in-out infinite; }
 .match-score { color: var(--white); font-weight: 700; }
+
+/* Bara minutului de joc */
+.minute-bar { margin-top: 8px; height: 4px; border-radius: 2px; background: var(--navy-600); overflow: hidden; max-width: 320px; }
+.minute-bar i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--lime-deep), var(--lime));
+  transform-origin: left center;
+  transform: scaleX(var(--p, .5));
+  transition: transform .6s cubic-bezier(.22, .61, .36, 1);
+}
 
 .odds-row { display: flex; gap: 8px; }
 
@@ -838,7 +930,7 @@ ul { list-style: none; }
   flex-direction: column;
   align-items: center;
   gap: 1px;
-  transition: background .15s, border-color .15s, color .15s, transform .1s;
+  transition: background-color .15s, border-color .15s, color .15s, transform .1s;
 }
 .odd-btn small {
   font-size: 10px;
@@ -848,22 +940,185 @@ ul { list-style: none; }
   color: var(--text-faint);
   transition: color .15s;
 }
-.odd-btn b {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 800;
-  font-size: 19px;
-  line-height: 1;
-}
-.odd-btn:hover, .odd-btn.selected {
-  background: var(--lime);
-  border-color: var(--lime);
-  color: var(--navy-950);
-}
+.odd-btn b { font-family: var(--font-num); font-weight: 700; font-style: normal; font-size: 17px; line-height: 1.2; }
+.odd-btn:hover, .odd-btn.selected { background: var(--lime); border-color: var(--lime); color: var(--navy-950); }
 .odd-btn:hover small, .odd-btn.selected small { color: rgba(6, 9, 23, .6); }
 .odd-btn:active { transform: scale(.97); }
 
-/* Cross-sell banner */
+/* ==========================================================================
+   Bilet demo (betslip)
+   ========================================================================== */
+
+.betslip {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 70;
+  width: 320px;
+  max-width: calc(100vw - 36px);
+  border-radius: var(--radius);
+  border: 1px solid rgba(200, 245, 32, .4);
+  background: rgba(10, 14, 39, .97);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .6);
+  overflow: hidden;
+  transform: translateY(12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .25s cubic-bezier(.22, .61, .36, 1), opacity .25s;
+}
+.betslip.open { transform: none; opacity: 1; pointer-events: auto; }
+
+.betslip-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--navy-800);
+  border-bottom: 1px solid var(--line);
+}
+.betslip-head h2 { font-size: 19px; color: var(--white); }
+.betslip-head .count {
+  font-family: var(--font-num);
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--navy-950);
+  background: var(--lime);
+  border-radius: 999px;
+  padding: 1px 9px;
+}
+.betslip-close {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  color: var(--text-dim);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color .15s, background-color .15s;
+}
+.betslip-close:hover { color: var(--white); background: var(--navy-600); }
+.betslip-close svg { width: 16px; height: 16px; }
+
+.betslip-body { padding: 12px 16px 16px; display: flex; flex-direction: column; gap: 10px; max-height: 46vh; overflow-y: auto; }
+
+.bs-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  background: var(--navy-800);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 12px;
+}
+.bs-item .bs-match { font-size: 12px; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bs-item .bs-pick { font-size: 13px; font-weight: 600; color: var(--white); }
+.bs-item .bs-odd { font-family: var(--font-num); font-weight: 700; font-size: 15px; color: var(--lime); }
+.bs-remove {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  color: var(--text-faint);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color .15s, background-color .15s;
+}
+.bs-remove:hover { color: var(--danger); background: var(--navy-600); }
+.bs-remove svg { width: 14px; height: 14px; }
+
+.bs-empty { font-size: 13px; color: var(--text-faint); text-align: center; padding: 10px 0 4px; }
+
+.bs-stake { display: flex; align-items: center; gap: 10px; }
+.bs-stake label { font-size: 12.5px; font-weight: 600; color: var(--text-dim); flex-shrink: 0; }
+.bs-stake input {
+  width: 100%;
+  min-width: 0;
+  background: var(--navy-800);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--white);
+  font-family: var(--font-num);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 8px 12px;
+  transition: border-color .15s;
+}
+.bs-stake input:hover { border-color: var(--text-faint); }
+.bs-stake input:focus-visible { border-color: var(--lime); box-shadow: none; }
+
+.bs-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+.bs-total .num { font-size: 19px; color: var(--lime); }
+.betslip .btn { width: 100%; }
+
+/* Buton plutitor pentru bilet */
+.betslip-fab {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 69;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 999px;
+  padding: 13px 22px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-size: 17px;
+  background: linear-gradient(135deg, var(--lime-strong), var(--lime));
+  color: var(--navy-950);
+  box-shadow: 0 8px 28px rgba(200, 245, 32, .4);
+  transition: transform .15s, box-shadow .15s, opacity .2s;
+}
+.betslip-fab:hover { transform: translateY(-2px); box-shadow: 0 10px 34px rgba(200, 245, 32, .55); }
+.betslip-fab .count {
+  font-family: var(--font-num);
+  font-style: normal;
+  font-size: 13px;
+  background: var(--navy-950);
+  color: var(--lime);
+  border-radius: 999px;
+  padding: 1px 9px;
+}
+.betslip-fab[hidden] { display: none; }
+
+/* Toast */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  z-index: 90;
+  transform: translate(-50%, 16px);
+  opacity: 0;
+  pointer-events: none;
+  background: var(--navy-950);
+  border: 1px solid var(--lime);
+  color: var(--white);
+  font-size: 14px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, .6);
+  transition: transform .25s, opacity .25s;
+}
+.toast.show { transform: translate(-50%, 0); opacity: 1; }
+
+/* Cross-sell */
 .cross-sell {
   margin: 44px 0 10px;
   position: relative;
@@ -904,10 +1159,8 @@ ul { list-style: none; }
   padding-bottom: 30px;
   border-bottom: 1px solid var(--line);
 }
-
 .footer-brand .logo { font-size: 30px; margin-bottom: 10px; }
 .footer-brand p { max-width: 34ch; font-size: 12.5px; }
-
 .footer-col h4 {
   font-family: var(--font-display);
   font-style: italic;
@@ -922,13 +1175,7 @@ ul { list-style: none; }
 .footer-col a { color: var(--text-dim); transition: color .15s; }
 .footer-col a:hover { color: var(--lime); }
 
-.pay-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--line);
-}
+.pay-row { display: flex; flex-wrap: wrap; gap: 8px; padding: 22px 0; border-bottom: 1px solid var(--line); }
 .pay-chip {
   font-size: 11px;
   font-weight: 700;
@@ -940,13 +1187,7 @@ ul { list-style: none; }
   padding: 6px 12px;
 }
 
-.footer-legal {
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-  padding-top: 22px;
-}
-
+.footer-legal { display: flex; gap: 18px; align-items: flex-start; padding-top: 22px; }
 .badge-18 {
   flex-shrink: 0;
   width: 46px;
@@ -959,17 +1200,10 @@ ul { list-style: none; }
   justify-content: center;
   font-weight: 800;
   font-size: 15px;
-  font-family: var(--font-body);
 }
-
 .footer-legal p { font-size: 11.5px; color: var(--text-faint); }
 .footer-legal a { color: var(--text-dim); text-decoration: underline; }
-
-.copyright {
-  margin-top: 18px;
-  font-size: 11.5px;
-  color: var(--text-faint);
-}
+.copyright { margin-top: 18px; font-size: 11.5px; color: var(--text-faint); }
 
 /* ==========================================================================
    Responsive
@@ -979,16 +1213,28 @@ ul { list-style: none; }
   .game-grid { grid-template-columns: repeat(4, 1fr); }
   .live-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
+  .hero-bento { grid-template-columns: 1fr; }
+  .hero-side { grid-template-rows: none; grid-template-columns: 1fr 1fr; }
+  .sport-hero-grid { grid-template-columns: 1fr; }
+  .promo-bento {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "big big"
+      "a b"
+      "wide wide";
+  }
 }
 
 @media (max-width: 860px) {
   .header-nav-desktop, .header-auth { display: none; }
   .burger { display: flex; }
-  .promo-grid { grid-template-columns: 1fr; }
   .match-card { grid-template-columns: 1fr; }
   .odds-row { width: 100%; }
   .odd-btn { flex: 1; width: auto; }
   .sport-hero { padding: 32px 24px; }
+  .promo-bento { grid-template-columns: 1fr; grid-template-areas: "big" "a" "b" "wide"; }
+  .promo-card.wide { flex-direction: column; align-items: flex-start; }
+  .promo-card.wide .btn { margin-top: auto; }
 }
 
 @media (max-width: 560px) {
@@ -999,6 +1245,9 @@ ul { list-style: none; }
   .slider-arrow.prev { left: 8px; }
   .slider-arrow.next { right: 8px; }
   .jackpot-band { padding: 22px 20px; }
+  .hero-side { grid-template-columns: 1fr; }
+  .betslip { right: 10px; bottom: 10px; }
+  .betslip-fab { right: 10px; bottom: 10px; }
   :root { --header-h: 62px; }
   .logo { font-size: 28px; }
 }
@@ -1006,6 +1255,10 @@ ul { list-style: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .slider-track { transition: none; }
-  .badge-live i, .match-time .live-tag i { animation: none; }
-  .game-card:hover, .promo-card:hover, .live-card:hover { transform: none; }
+  .badge-live i, .match-time .live-tag i, .ticker-label i { animation: none; }
+  .ticker-track { animation: none; }
+  .game-card:hover, .promo-card:hover, .live-card:hover, .side-card:hover { transform: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .minute-bar i { transition: none; }
+  .betslip, .toast { transition: none; }
 }
