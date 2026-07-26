@@ -24,8 +24,9 @@ Deploy: push pe ramura de lucru → GitHub Actions rulează build-ul și public�
 ## Reguli de design (din brief + skill-urile folosite)
 
 - Paletă: navy `#0A0E27` / lime `#C8F520` / alb — nu se schimbă, e brandul
-- Display: Barlow Condensed **drept** (600–800). Italic există într-un singur loc:
-  wordmark-ul `.logo`. Nu reintroduce italic în alte componente.
+- Display: **Archivo** (700/800), drept. Logo-ul `.logo` e singura excepție:
+  Barlow Condensed italic 800 (fidel logo-ului real). Nu reintroduce italic
+  sau fonturi condensate în alte componente.
 - Cifre (cote, sume, scoruri): Chakra Petch prin clasa `.num`
 - Ținte tactile ≥44px, gap ≥8px; animații doar transform/opacity, cu variantă
   `prefers-reduced-motion`; focus vizibil `:focus-visible`
