@@ -58,6 +58,19 @@ input { font-family: inherit; }
   border-radius: 6px;
 }
 
+/* Doar pentru cititoare de ecran */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Skip link */
 .skip-link {
   position: absolute;
@@ -455,6 +468,7 @@ input { font-family: inherit; }
   padding: 8px 26px 8px 0;
 }
 .ticker-track b { color: var(--white); font-weight: 600; }
+.ticker-track .ticker-dup { padding: 0; }
 .ticker-track .num { color: var(--lime); font-weight: 700; }
 
 @keyframes marquee {
@@ -1411,8 +1425,12 @@ input { font-family: inherit; }
   .odd-btn { min-height: 52px; }
   .section-link { padding: 8px 0; }
 
-  /* Meniul mobil devine secundar (bara de jos e navigarea principală) */
-  .mobile-menu .product-nav { display: none; }
+  /* Bara de jos preia navigarea — burgerul dispare, autentificarea revine
+     compact în header */
+  .burger { display: none; }
+  .mobile-menu { display: none; }
+  .header-auth { display: flex; margin-left: auto; gap: 8px; }
+  .header-auth .btn { font-size: 14px; padding: 7px 12px; min-height: 40px; letter-spacing: .02em; }
 
   /* Biletul devine bottom-sheet deasupra barei de navigare */
   .betslip {

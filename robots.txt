@@ -1,0 +1,4 @@
+# Demo front-end — nu indexați versiunea de test.
+# De înlocuit cu reguli permisive la lansarea pe 1x2.ro.
+User-agent: *
+Disallow: /

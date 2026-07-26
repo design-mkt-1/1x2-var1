@@ -170,8 +170,9 @@ const PREFERS_STILL = window.matchMedia('(prefers-reduced-motion: reduce)').matc
   const html = WINS.map(([name, amount, game]) =>
     '<span><b>' + name + '</b> a câștigat <span class="num">' + amount + '</span> la ' + game + '</span>'
   ).join('');
-  /* două copii pentru buclă continuă; copia a doua e decorativă */
-  track.innerHTML = html + '<span aria-hidden="true">' + html + '</span>';
+  /* două copii pentru buclă continuă; copia a doua e decorativă și fără
+     padding propriu, ca ambele jumătăți să aibă exact aceeași lățime */
+  track.innerHTML = html + '<span class="ticker-dup" aria-hidden="true">' + html + '</span>';
 })();
 
 /* ---------- Jackpot demo — crește lent, doar vizual ---------- */
@@ -245,7 +246,10 @@ function showToast(message) {
   let opened = false;
 
   function stake() {
-    const v = parseFloat(String(stakeInput.value).replace(/\./g, '').replace(',', '.'));
+    let s = String(stakeInput.value).trim().replace(/\s/g, '');
+    /* "50.5" = zecimale; "1.000" = separator de mii; "1.000,50" = ambele */
+    if (/^\d+\.\d{1,2}$/.test(s)) s = s.replace('.', ',');
+    const v = parseFloat(s.replace(/\./g, '').replace(',', '.'));
     return isFinite(v) && v > 0 ? v : 0;
   }
 
