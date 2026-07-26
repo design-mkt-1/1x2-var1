@@ -153,28 +153,6 @@ const PREFERS_STILL = window.matchMedia('(prefers-reduced-motion: reduce)').matc
   items.forEach((el) => io.observe(el));
 })();
 
-/* ---------- Ticker câștiguri (demo) ---------- */
-(function initTicker() {
-  const track = document.querySelector('[data-ticker]');
-  if (!track) return;
-  const WINS = [
-    ['Andrei B.', '4.280 RON', 'Fulger 7'],
-    ['Ioana M.', '1.150 RON', 'Ruletă Live'],
-    ['Cristian P.', '12.400 RON', 'Seiful Faraonului'],
-    ['Elena D.', '760 RON', 'Ocean Spin'],
-    ['Vlad S.', '3.905 RON', 'Rachetă X'],
-    ['Maria T.', '2.240 RON', 'Coroana de Aur'],
-    ['Radu N.', '890 RON', 'Blackjack'],
-    ['Ana C.', '6.700 RON', 'Steaua Norocului']
-  ];
-  const html = WINS.map(([name, amount, game]) =>
-    '<span><b>' + name + '</b> a câștigat <span class="num">' + amount + '</span> la ' + game + '</span>'
-  ).join('');
-  /* două copii pentru buclă continuă; copia a doua e decorativă și fără
-     padding propriu, ca ambele jumătăți să aibă exact aceeași lățime */
-  track.innerHTML = html + '<span class="ticker-dup" aria-hidden="true">' + html + '</span>';
-})();
-
 /* ---------- Jackpot demo — crește lent, doar vizual ---------- */
 (function initJackpot() {
   const els = document.querySelectorAll('[data-jackpot]');
