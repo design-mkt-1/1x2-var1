@@ -1,0 +1,49 @@
+---
+// Layout-ul comun al site-ului: <head>, header, footer, navigare mobilă.
+// Fiecare pagină furnizează doar conținutul dintre ele.
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BottomNav from '../components/BottomNav.astro';
+
+const {
+  title,
+  description,
+  active = '',      // 'casino' | 'sport' | 'oferte'
+  bilet = false,    // true pe paginile cu bilet demo (Sport)
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  {/* URL absolut cerut de og:image — de actualizat când site-ul trece pe 1x2.ro */}
+  <meta property="og:image" content="https://design-mkt-1.github.io/1x2-var1/assets/img/og.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+  <link rel="stylesheet" href="assets/css/fonts.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#continut">Sari la conținut</a>
+
+  <Header active={active} />
+
+  <main id="continut">
+    <slot />
+  </main>
+
+  <Footer />
+
+  <BottomNav active={active} bilet={bilet} />
+
+  <slot name="after-nav" />
+
+  <script is:inline src="assets/js/main.js"></script>
+</body>
+</html>

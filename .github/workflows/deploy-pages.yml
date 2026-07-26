@@ -1,7 +1,7 @@
-name: Publish to GitHub Pages
+name: Build and publish to GitHub Pages
 
-# Pages serves the gh-pages branch; this mirrors the working branch into
-# gh-pages on every push so the live site always matches the latest code.
+# Site-ul e construit cu Astro; publicăm rezultatul (dist/) pe ramura
+# gh-pages, din care servește GitHub Pages.
 
 on:
   push:
@@ -16,9 +16,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  publish:
+  build-publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Mirror branch to gh-pages
-        run: git push origin HEAD:gh-pages --force
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Publish dist to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          force_orphan: true

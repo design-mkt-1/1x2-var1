@@ -95,11 +95,10 @@ input { font-family: inherit; }
 /* Display type */
 .dsp {
   font-family: var(--font-display);
-  font-style: italic;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: .01em;
-  line-height: 1.05;
+  letter-spacing: .025em;
+  line-height: 1.08;
 }
 
 /* Cifre — cote, sume, scoruri */
@@ -140,6 +139,26 @@ input { font-family: inherit; }
 .reveal.in { opacity: 1; transform: none; }
 .no-observer .reveal { opacity: 1; transform: none; }
 
+/* Antet de pagină simplă (promoții, termeni etc.) */
+.page-head { padding: 34px 0 6px; }
+.page-head h1 { font-size: clamp(30px, 4vw, 44px); color: var(--white); }
+.page-head h1 .tick { color: var(--lime); }
+.page-head p { color: var(--text-dim); font-size: 14px; margin-top: 8px; max-width: 60ch; }
+
+/* Conținut text lung */
+.prose { padding: 10px 0 20px; max-width: 74ch; }
+.prose h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  font-size: 21px;
+  color: var(--white);
+  margin: 26px 0 8px;
+}
+.prose p { color: var(--text-dim); font-size: 14.5px; margin-bottom: 10px; }
+.prose a { color: var(--lime); text-decoration: underline; }
+
 /* ==========================================================================
    Buttons
    ========================================================================== */
@@ -150,7 +169,6 @@ input { font-family: inherit; }
   justify-content: center;
   gap: 8px;
   font-family: var(--font-display);
-  font-style: italic;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .04em;
@@ -200,7 +218,7 @@ input { font-family: inherit; }
   align-items: baseline;
   flex-shrink: 0;
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: italic; /* singurul loc italic — reia înclinarea logo-ului */
   font-weight: 800;
   font-size: 34px;
   letter-spacing: .01em;
@@ -236,7 +254,6 @@ input { font-family: inherit; }
   align-items: center;
   gap: 8px;
   font-family: var(--font-display);
-  font-style: italic;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 17px;
@@ -437,7 +454,6 @@ input { font-family: inherit; }
   align-items: center;
   gap: 6px;
   font-family: var(--font-display);
-  font-style: italic;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 14px;
@@ -510,7 +526,6 @@ input { font-family: inherit; }
   gap: 9px;
   white-space: nowrap;
   font-family: var(--font-display);
-  font-style: italic;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 16px;
@@ -539,7 +554,6 @@ input { font-family: inherit; }
   padding: 10px 2px 12px;
   min-height: 44px;
   font-family: var(--font-display);
-  font-style: italic;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 16px;
@@ -591,7 +605,6 @@ input { font-family: inherit; }
 .game-name {
   position: relative;
   font-family: var(--font-display);
-  font-style: italic;
   font-weight: 800;
   text-transform: uppercase;
   font-size: 17px;
@@ -848,7 +861,7 @@ input { font-family: inherit; }
   margin-bottom: 8px;
 }
 .sport-hero h1 { font-size: clamp(30px, 3.8vw, 42px); color: var(--white); max-width: 22ch; }
-.sport-hero h1 em { color: var(--lime); font-style: italic; }
+.sport-hero h1 em { color: var(--lime); }
 .sport-hero p { color: var(--text-dim); max-width: 52ch; margin: 10px 0 16px; font-size: 14px; }
 
 /* Cota zilei */
@@ -924,7 +937,6 @@ input { font-family: inherit; }
 .match-league .markets { color: var(--text-faint); font-weight: 500; letter-spacing: 0; text-transform: none; }
 .match-teams {
   font-family: var(--font-display);
-  font-style: italic;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 19px;
@@ -1112,7 +1124,6 @@ input { font-family: inherit; }
   border-radius: 999px;
   padding: 13px 22px;
   font-family: var(--font-display);
-  font-style: italic;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .04em;
@@ -1172,7 +1183,7 @@ input { font-family: inherit; }
   flex-wrap: wrap;
 }
 .cross-sell h2 { font-size: clamp(24px, 3.4vw, 36px); color: var(--white); }
-.cross-sell h2 em { color: var(--lime); font-style: italic; }
+.cross-sell h2 em { color: var(--lime); }
 .cross-sell p { color: var(--text-dim); font-size: 14px; margin-top: 6px; max-width: 52ch; }
 
 /* ==========================================================================
@@ -1199,7 +1210,6 @@ input { font-family: inherit; }
 .footer-brand p { max-width: 34ch; font-size: 12.5px; }
 .footer-col h4 {
   font-family: var(--font-display);
-  font-style: italic;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 16px;
