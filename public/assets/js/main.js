@@ -149,7 +149,7 @@ const PREFERS_STILL = window.matchMedia('(prefers-reduced-motion: reduce)').matc
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px 12% 0px' });
   items.forEach((el) => io.observe(el));
 })();
 
