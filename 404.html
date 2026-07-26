@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Pagina nu există | 1X2.ro</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
+      padding: 24px;
+      font-family: Arial, 'Segoe UI', sans-serif;
+      color: #EEF1FB;
+      background: radial-gradient(90% 130% at 85% -10%, rgba(200, 245, 32, .12), transparent 55%), linear-gradient(120deg, #10163A, #0A0E27 55%, #060917);
+    }
+    .logo { font-size: 54px; font-weight: 900; font-style: italic; color: #fff; }
+    .logo .x { position: relative; padding: 0 1px; display: inline-block; }
+    .logo .x::after { content: ''; position: absolute; left: 50%; top: 52%; width: 6px; height: 150%; background: #C8F520; transform: translate(-50%, -50%) rotate(29deg); border-radius: 3px; }
+    .logo .tld { color: #C8F520; font-size: 22px; }
+    h1 { font-size: 88px; color: #C8F520; line-height: 1; }
+    p { color: #9AA3C7; max-width: 40ch; }
+    a.btn {
+      margin-top: 10px;
+      display: inline-block;
+      background: linear-gradient(135deg, #DCFF3D, #C8F520);
+      color: #060917;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 13px 30px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">1<span class="x">X</span>2<span class="tld">.ro</span></div>
+  <h1>404</h1>
+  <p>Pagina pe care o cauți nu există sau a fost mutată. Cota asta n-a intrat…</p>
+  <a class="btn" id="home" href="/">Înapoi la Casino</a>
+  <script>
+    /* pe GitHub Pages site-ul stă sub /<repo>/ — pe domeniul final rămâne / */
+    var seg = location.pathname.split('/')[1];
+    if (location.hostname.endsWith('github.io') && seg) {
+      document.getElementById('home').href = '/' + seg + '/';
+    }
+  </script>
+</body>
+</html>
