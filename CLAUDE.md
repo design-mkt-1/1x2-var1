@@ -32,6 +32,9 @@ Deploy: push pe ramura de lucru → GitHub Actions rulează build-ul și public�
 - Mobil: bara de navigare fixă jos e navigarea principală; sliderul și tickerul
   sunt full-bleed; textul păstrează inset 12px
 
+Regulile complete de interfață (Vercel Web Interface Guidelines) sunt în
+`AGENTS.md` — orice cod de UI nou trebuie verificat contra lor.
+
 ## Proces de lucru (adoptat din obra/superpowers)
 
 1. **Verificare înainte de orice afirmație de finalizare** — nicio pretenție de
